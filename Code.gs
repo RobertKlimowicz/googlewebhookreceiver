@@ -14,15 +14,8 @@ function doPost(e) {
   var testRunEnv = myData.environment_name;
   var testRunResult = myData.result;
   var sheet = SpreadsheetApp.getActiveSheet();
-  var lastRow = Math.max(sheet.getLastRow(),1);
-  sheet.insertRowAfter(lastRow);
   var timestamp = new Date();
-  sheet.getRange(lastRow + 1, 1).setValue(timestamp);
-  sheet.getRange(lastRow + 1, 2).setValue(testRunName);
-  sheet.getRange(lastRow + 1, 3).setValue(testRunEnv);
-  sheet.getRange(lastRow + 1, 4).setValue(testRunResult);
-  sheet.getRange(lastRow + 1, 5).setValue(testRunUrl);
-  sheet.getRange(lastRow + 1, 6).setValue(params);
+  sheet.appendRow([timestamp, testRunName, testRunEnv, testRunResult, testRunUrl, params])
   SpreadsheetApp.flush();
   return HtmlService.createHtmlOutput("post request received");
 }
